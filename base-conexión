@@ -1,0 +1,45 @@
+package Login;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+/**
+ *
+ * @author Angel Geovanni Marcial Morales
+ */
+public class Base 
+{
+    public static final String URL = "jdbc:mysql://localhost:3308/login";
+    public static final String USER = "root";
+    public static final String CLAVE = "";    
+    
+    Connection con = null;
+    Statement sentencia;
+    
+    public void conectarBaseDatos() 
+    {
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USER, CLAVE);
+            JOptionPane.showMessageDialog(null, "coneccion establecida");
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Error en la dirrecion de la base de datos");
+        }
+        try 
+        {
+            sentencia = con.createStatement();
+        } catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al crear la conexión con la base de datos");
+        }       
+    }
+    
+    public Connection getConnection()
+    {
+        return con;
+    }
+}
